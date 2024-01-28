@@ -16,6 +16,9 @@ const DISTANCE_MAX = 500;
 const DISTANCE_STEP = 10;
 const DISTANCE_DEFAULT = 200;
 
+const DEFAULT_SPEED = 500;
+const DEFAULT_SPEED_DIVIDER = 1000;
+
 const Group1 = 0;
 const Group2 = 1;
 
@@ -59,6 +62,7 @@ class Particle {
 	}
 }
 
+let speed = DEFAULT_SPEED / DEFAULT_SPEED_DIVIDER;
 let paused = true;
 let particles: Particle[] = [];
 let interactions: Interaction[] = [];
@@ -425,8 +429,8 @@ function interaction(
 
 			a.vx = (a.vx + fx) * 0.5;
 			a.vy = (a.vy + fy) * 0.5;
-			a.x += a.vx;
-			a.y += a.vy;
+			a.x += a.vx * speed;
+			a.y += a.vy * speed;
 		}
 	}
 }
@@ -487,6 +491,18 @@ document.querySelector(".add.interaction")?.addEventListener("click", () => {
 	};
 
 	addInteraction(interaction);
+});
+
+const speedRange = document.querySelector(
+	".range-content.speed"
+) as HTMLInputElement;
+
+speedRange.addEventListener("input", () => {
+	const value = parseInt(speedRange.value);
+	speed = value / DEFAULT_SPEED_DIVIDER;
+
+	document.querySelector(".setting-value.speed")!.textContent =
+		value.toLocaleString("en-US");
 });
 
 document.querySelector(".play-pause")?.addEventListener("click", () => {

@@ -13,6 +13,8 @@ var DISTANCE_MIN = 10;
 var DISTANCE_MAX = 500;
 var DISTANCE_STEP = 10;
 var DISTANCE_DEFAULT = 200;
+var DEFAULT_SPEED = 500;
+var DEFAULT_SPEED_DIVIDER = 1000;
 var Group1 = 0;
 var Group2 = 1;
 var canvas = document.querySelector("canvas");
@@ -35,6 +37,7 @@ var Particle = /** @class */ (function () {
     Particle.DEFAULT_RADIUS = 5;
     return Particle;
 }());
+var speed = DEFAULT_SPEED / DEFAULT_SPEED_DIVIDER;
 var paused = true;
 var particles = [];
 var interactions = [];
@@ -292,8 +295,8 @@ function interaction(group1, group2, options) {
             }
             a.vx = (a.vx + fx) * 0.5;
             a.vy = (a.vy + fy) * 0.5;
-            a.x += a.vx;
-            a.y += a.vy;
+            a.x += a.vx * speed;
+            a.y += a.vy * speed;
         }
     }
 }
@@ -345,6 +348,13 @@ function interaction(group1, group2, options) {
         options: options,
     };
     addInteraction(interaction);
+});
+var speedRange = document.querySelector(".range-content.speed");
+speedRange.addEventListener("input", function () {
+    var value = parseInt(speedRange.value);
+    speed = value / DEFAULT_SPEED_DIVIDER;
+    document.querySelector(".setting-value.speed").textContent =
+        value.toLocaleString("en-US");
 });
 (_c = document.querySelector(".play-pause")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", function () {
     paused = !paused;

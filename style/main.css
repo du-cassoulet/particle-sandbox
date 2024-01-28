@@ -134,6 +134,92 @@ body {
   background: rgba(255, 255, 255, 0.1333333333);
   color: rgba(255, 255, 255, 0.6666666667);
 }
+.gui .content .range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gui .content .range .value {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5333333333);
+  font-size: 12px;
+}
+.gui .content .range .range-content {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1333333333);
+  border-radius: 5px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+.gui .content .range .range-content::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  background: #6536fe;
+}
+.gui .content .range .range-content::-moz-range-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  background: #6536fe;
+}
+.gui .content .range .range-content::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+.gui .content .range .range-content::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+.gui .content .range .range-content::-webkit-slider-thumb:active {
+  transform: scale(1.2);
+}
+.gui .content .range .range-content::-moz-range-thumb:active {
+  transform: scale(1.2);
+}
+.gui .content .setting {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5333333333);
+}
+.gui .content .setting .setting-value {
+  background: rgba(255, 255, 255, 0.1333333333);
+  color: #ffffff;
+  padding: 2px 6px;
+  font-weight: 400;
+  border-radius: 5px;
+  margin-left: 2px;
+  border: none;
+  outline: none;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.gui .content .setting .setting-value::-webkit-outer-spin-button, .gui .content .setting .setting-value::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0;
+}
+.gui .content .globals {
+  margin-top: 15px;
+}
+.gui .content .globals .range {
+  margin-top: 5px;
+}
 .gui .content .interaction-container .setting {
   margin-top: 5px;
 }
@@ -407,125 +493,6 @@ body {
 .gui .content .interaction-containers .particle-container:hover .colors .close,
 .gui .content .interaction-containers .interaction-container:hover .colors .close {
   opacity: 1;
-}
-.gui .content .particle-containers .particle-container .setting,
-.gui .content .particle-containers .interaction-container .setting,
-.gui .content .interaction-containers .particle-container .setting,
-.gui .content .interaction-containers .interaction-container .setting {
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5333333333);
-}
-.gui .content .particle-containers .particle-container .setting .setting-value,
-.gui .content .particle-containers .interaction-container .setting .setting-value,
-.gui .content .interaction-containers .particle-container .setting .setting-value,
-.gui .content .interaction-containers .interaction-container .setting .setting-value {
-  background: rgba(255, 255, 255, 0.1333333333);
-  color: #ffffff;
-  padding: 2px 6px;
-  font-weight: 400;
-  border-radius: 5px;
-  margin-left: 2px;
-  border: none;
-  outline: none;
-  appearance: textfield;
-  -moz-appearance: textfield;
-}
-.gui .content .particle-containers .particle-container .setting .setting-value::-webkit-outer-spin-button, .gui .content .particle-containers .particle-container .setting .setting-value::-webkit-inner-spin-button,
-.gui .content .particle-containers .interaction-container .setting .setting-value::-webkit-outer-spin-button,
-.gui .content .particle-containers .interaction-container .setting .setting-value::-webkit-inner-spin-button,
-.gui .content .interaction-containers .particle-container .setting .setting-value::-webkit-outer-spin-button,
-.gui .content .interaction-containers .particle-container .setting .setting-value::-webkit-inner-spin-button,
-.gui .content .interaction-containers .interaction-container .setting .setting-value::-webkit-outer-spin-button,
-.gui .content .interaction-containers .interaction-container .setting .setting-value::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-  padding: 0;
-}
-.gui .content .particle-containers .particle-container .range,
-.gui .content .particle-containers .interaction-container .range,
-.gui .content .interaction-containers .particle-container .range,
-.gui .content .interaction-containers .interaction-container .range {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.gui .content .particle-containers .particle-container .range .value,
-.gui .content .particle-containers .interaction-container .range .value,
-.gui .content .interaction-containers .particle-container .range .value,
-.gui .content .interaction-containers .interaction-container .range .value {
-  text-align: center;
-  color: rgba(255, 255, 255, 0.5333333333);
-  font-size: 12px;
-}
-.gui .content .particle-containers .particle-container .range .range-content,
-.gui .content .particle-containers .interaction-container .range .range-content,
-.gui .content .interaction-containers .particle-container .range .range-content,
-.gui .content .interaction-containers .interaction-container .range .range-content {
-  width: 100%;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.1333333333);
-  border-radius: 5px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  outline: none;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s ease-in-out;
-}
-.gui .content .particle-containers .particle-container .range .range-content::-webkit-slider-thumb,
-.gui .content .particle-containers .interaction-container .range .range-content::-webkit-slider-thumb,
-.gui .content .interaction-containers .particle-container .range .range-content::-webkit-slider-thumb,
-.gui .content .interaction-containers .interaction-container .range .range-content::-webkit-slider-thumb {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
-  background: #6536fe;
-}
-.gui .content .particle-containers .particle-container .range .range-content::-moz-range-thumb,
-.gui .content .particle-containers .interaction-container .range .range-content::-moz-range-thumb,
-.gui .content .interaction-containers .particle-container .range .range-content::-moz-range-thumb,
-.gui .content .interaction-containers .interaction-container .range .range-content::-moz-range-thumb {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
-  background: #6536fe;
-}
-.gui .content .particle-containers .particle-container .range .range-content::-webkit-slider-thumb:hover,
-.gui .content .particle-containers .interaction-container .range .range-content::-webkit-slider-thumb:hover,
-.gui .content .interaction-containers .particle-container .range .range-content::-webkit-slider-thumb:hover,
-.gui .content .interaction-containers .interaction-container .range .range-content::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-}
-.gui .content .particle-containers .particle-container .range .range-content::-moz-range-thumb:hover,
-.gui .content .particle-containers .interaction-container .range .range-content::-moz-range-thumb:hover,
-.gui .content .interaction-containers .particle-container .range .range-content::-moz-range-thumb:hover,
-.gui .content .interaction-containers .interaction-container .range .range-content::-moz-range-thumb:hover {
-  transform: scale(1.2);
-}
-.gui .content .particle-containers .particle-container .range .range-content::-webkit-slider-thumb:active,
-.gui .content .particle-containers .interaction-container .range .range-content::-webkit-slider-thumb:active,
-.gui .content .interaction-containers .particle-container .range .range-content::-webkit-slider-thumb:active,
-.gui .content .interaction-containers .interaction-container .range .range-content::-webkit-slider-thumb:active {
-  transform: scale(1.2);
-}
-.gui .content .particle-containers .particle-container .range .range-content::-moz-range-thumb:active,
-.gui .content .particle-containers .interaction-container .range .range-content::-moz-range-thumb:active,
-.gui .content .interaction-containers .particle-container .range .range-content::-moz-range-thumb:active,
-.gui .content .interaction-containers .interaction-container .range .range-content::-moz-range-thumb:active {
-  transform: scale(1.2);
 }
 .gui .content .particle-containers .particle-container.red .container-head .color,
 .gui .content .particle-containers .interaction-container.red .container-head .color,

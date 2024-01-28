@@ -65,12 +65,34 @@
 				</div>
 				<div class="category">
 					<div class="category-head">
+						<h2 class="label">Global Settings</h2>
+					</div>
+					<div class="globals">
+						<h4 class="setting">
+							Particle Speed : <span class="setting-value speed">500</span>
+						</h4>
+						<div class="range">
+							<div class="value left">1</div>
+							<input
+								class="range-content speed"
+								type="range"
+								min="1"
+								max="1000"
+								value="500"
+								step="1"
+							/>
+							<div class="value right">1,000</div>
+						</div>
+					</div>
+				</div>
+				<div class="category">
+					<div class="category-head">
 						<button class="add particle">+</button>
 						<h2 class="label">Particles</h2>
 					</div>
 					<div class="particle-containers"></div>
 				</div>
-				<div>
+				<div class="category">
 					<div class="category-head">
 						<button class="add interaction">+</button>
 						<h2 class="label">Interactions</h2>
