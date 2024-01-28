@@ -89,7 +89,7 @@ function reset() {
 
 	paused = true;
 	const img = document.querySelector(".play-pause img") as HTMLImageElement;
-	img.src = "/assets/images/svg/play_arrow.svg";
+	img.src = "assets/images/svg/play_arrow.svg";
 }
 
 function addColor(color: string, autoGroup: boolean = true) {
@@ -495,8 +495,8 @@ document.querySelector(".play-pause")?.addEventListener("click", () => {
 	const img = document.querySelector(".play-pause img") as HTMLImageElement;
 
 	img.src = paused
-		? "/assets/images/svg/play_arrow.svg"
-		: "/assets/images/svg/pause.svg";
+		? "assets/images/svg/play_arrow.svg"
+		: "assets/images/svg/pause.svg";
 });
 
 document.querySelector(".reset")?.addEventListener("click", () => {

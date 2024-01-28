@@ -61,7 +61,7 @@ function reset() {
     });
     paused = true;
     var img = document.querySelector(".play-pause img");
-    img.src = "/assets/images/svg/play_arrow.svg";
+    img.src = "assets/images/svg/play_arrow.svg";
 }
 function addColor(color, autoGroup) {
     if (autoGroup === void 0) { autoGroup = true; }
@@ -350,8 +350,8 @@ function interaction(group1, group2, options) {
     paused = !paused;
     var img = document.querySelector(".play-pause img");
     img.src = paused
-        ? "/assets/images/svg/play_arrow.svg"
-        : "/assets/images/svg/pause.svg";
+        ? "assets/images/svg/play_arrow.svg"
+        : "assets/images/svg/pause.svg";
 });
 (_d = document.querySelector(".reset")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", function () {
     reset();
