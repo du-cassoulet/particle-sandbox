@@ -425,8 +425,8 @@ function interaction(
 
 			a.vx = (a.vx + fx) * 0.5;
 			a.vy = (a.vy + fy) * 0.5;
-			a.x += a.vx * 0.01;
-			a.y += a.vy * 0.01;
+			a.x += a.vx;
+			a.y += a.vy;
 		}
 	}
 }
