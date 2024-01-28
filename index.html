@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Particle Sandbox</title>
+		<script defer src="script/main.js"></script>
+		<link rel="stylesheet" href="style/main.css" />
+		<link
+			rel="shortcut icon"
+			href="assets/images/ico/favicon.ico"
+			type="image/x-icon"
+		/>
+	</head>
+	<body>
+		<canvas></canvas>
+		<section class="gui">
+			<div class="content">
+				<div class="head">
+					<h1 class="title">Particle Sandbox</h1>
+					<div class="head-buttons">
+						<button class="play-pause">
+							<img
+								src="/assets/images/svg/play_arrow.svg"
+								alt="play-pause"
+								height="16"
+								width="16"
+							/>
+						</button>
+						<button class="reset">
+							<img
+								src="/assets/images/svg/restart.svg"
+								alt="reset"
+								height="16"
+								width="16"
+							/>
+						</button>
+						<button class="minimize">
+							<img
+								src="/assets/images/svg/arrow_down.svg"
+								alt="minimize"
+								height="16"
+								width="16"
+							/>
+						</button>
+					</div>
+				</div>
+				<div class="category">
+					<div class="category-head">
+						<button class="add particle">+</button>
+						<h2 class="label">Particles</h2>
+					</div>
+					<div class="particle-containers"></div>
+				</div>
+				<div>
+					<div class="category-head">
+						<button class="add interaction">+</button>
+						<h2 class="label">Interactions</h2>
+					</div>
+					<div class="interaction-containers"></div>
+				</div>
+				<div class="down-buttons">
+					<button class="save">
+						<img
+							src="assets/images/svg/upload.svg"
+							alt="upload"
+							height="16"
+							width="16"
+						/>
+						<p>Export this scene</p>
+					</button>
+					<button class="load">
+						<img
+							src="assets/images/svg/download.svg"
+							alt="download"
+							height="16"
+							width="16"
+						/>
+						<p>Import a scene</p>
+					</button>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

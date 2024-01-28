@@ -1,0 +1,672 @@
+@font-face {
+  font-family: "Rubik";
+  src: url(../assets/fonts/Rubik.ttf);
+}
+@font-face {
+  font-family: "Rubik";
+  font-style: italic;
+  src: url(../assets/fonts/RubikItalic.ttf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+  user-select: none;
+}
+
+body {
+  overflow: hidden;
+}
+
+.gui {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px;
+  z-index: 100;
+  background: #111111;
+  color: #ffffff;
+  border-radius: 10px;
+  transition: all 0.4s ease-in-out;
+}
+.gui .content {
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  min-width: 350px;
+  max-height: calc(100vh - 30px);
+  transition: all 0.3s ease-in-out;
+}
+.gui .content.minimized {
+  max-height: 55px;
+  overflow: hidden;
+}
+.gui .content.minimized .head .head-buttons .minimize img {
+  transform: rotate(-180deg);
+}
+.gui .content::-webkit-scrollbar {
+  width: 5px;
+}
+.gui .content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0);
+}
+.gui .content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1333333333);
+  border-radius: 5px;
+}
+.gui .content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2666666667);
+}
+.gui .content .head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.gui .content .head .title {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-left: 5px;
+}
+.gui .content .head .head-buttons {
+  display: flex;
+  gap: 10px;
+}
+.gui .content .head .head-buttons .reset,
+.gui .content .head .head-buttons .minimize,
+.gui .content .head .head-buttons .play-pause {
+  background: rgba(255, 255, 255, 0.0666666667);
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+.gui .content .head .head-buttons .reset img,
+.gui .content .head .head-buttons .minimize img,
+.gui .content .head .head-buttons .play-pause img {
+  transition: all 0.2s ease-in-out;
+}
+.gui .content .head .head-buttons .reset:hover,
+.gui .content .head .head-buttons .minimize:hover,
+.gui .content .head .head-buttons .play-pause:hover {
+  background: rgba(255, 255, 255, 0.1647058824);
+}
+.gui .content .category-head {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+.gui .content .category-head .label {
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+}
+.gui .content .category-head .add {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5333333333);
+}
+.gui .content .category-head .add:hover {
+  background: rgba(255, 255, 255, 0.1333333333);
+  color: rgba(255, 255, 255, 0.6666666667);
+}
+.gui .content .interaction-container .setting {
+  margin-top: 5px;
+}
+.gui .content .particle-containers,
+.gui .content .interaction-containers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gui .content .particle-containers .particle-container,
+.gui .content .particle-containers .interaction-container,
+.gui .content .interaction-containers .particle-container,
+.gui .content .interaction-containers .interaction-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: all 0.2s ease-in-out;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 5px;
+  padding: 10px;
+}
+.gui .content .particle-containers .particle-container .colors,
+.gui .content .particle-containers .interaction-container .colors,
+.gui .content .interaction-containers .particle-container .colors,
+.gui .content .interaction-containers .interaction-container .colors {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.gui .content .particle-containers .particle-container .colors .setting,
+.gui .content .particle-containers .interaction-container .colors .setting,
+.gui .content .interaction-containers .particle-container .colors .setting,
+.gui .content .interaction-containers .interaction-container .colors .setting {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6666666667);
+  margin: 0;
+}
+.gui .content .particle-containers .particle-container .colors .color-selector,
+.gui .content .particle-containers .interaction-container .colors .color-selector,
+.gui .content .interaction-containers .particle-container .colors .color-selector,
+.gui .content .interaction-containers .interaction-container .colors .color-selector {
+  position: relative;
+}
+.gui .content .particle-containers .particle-container .colors .color-selector .color,
+.gui .content .particle-containers .interaction-container .colors .color-selector .color,
+.gui .content .interaction-containers .particle-container .colors .color-selector .color,
+.gui .content .interaction-containers .interaction-container .colors .color-selector .color {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+.gui .content .particle-containers .particle-container .colors .color-selector .color.red,
+.gui .content .particle-containers .interaction-container .colors .color-selector .color.red,
+.gui .content .interaction-containers .particle-container .colors .color-selector .color.red,
+.gui .content .interaction-containers .interaction-container .colors .color-selector .color.red {
+  background: #f91d4d;
+}
+.gui .content .particle-containers .particle-container .colors .color-selector .color.green,
+.gui .content .particle-containers .interaction-container .colors .color-selector .color.green,
+.gui .content .interaction-containers .particle-container .colors .color-selector .color.green,
+.gui .content .interaction-containers .interaction-container .colors .color-selector .color.green {
+  background: #0db342;
+}
+.gui .content .particle-containers .particle-container .colors .color-selector .color.blue,
+.gui .content .particle-containers .interaction-container .colors .color-selector .color.blue,
+.gui .content .interaction-containers .particle-container .colors .color-selector .color.blue,
+.gui .content .interaction-containers .interaction-container .colors .color-selector .color.blue {
+  background: #4a4ad7;
+}
+.gui .content .particle-containers .particle-container .colors .color-selector .color.yellow,
+.gui .content .particle-containers .interaction-container .colors .color-selector .color.yellow,
+.gui .content .interaction-containers .particle-container .colors .color-selector .color.yellow,
+.gui .content .interaction-containers .interaction-container .colors .color-selector .color.yellow {
+  background: #f0e246;
+}
+.gui .content .particle-containers .particle-container .colors .color-selector .color.cyan,
+.gui .content .particle-containers .interaction-container .colors .color-selector .color.cyan,
+.gui .content .interaction-containers .particle-container .colors .color-selector .color.cyan,
+.gui .content .interaction-containers .interaction-container .colors .color-selector .color.cyan {
+  background: #42cedb;
+}
+.gui .content .particle-containers .particle-container .colors .color-selector .color.magenta,
+.gui .content .particle-containers .interaction-container .colors .color-selector .color.magenta,
+.gui .content .interaction-containers .particle-container .colors .color-selector .color.magenta,
+.gui .content .interaction-containers .interaction-container .colors .color-selector .color.magenta {
+  background: #d742d7;
+}
+.gui .content .particle-containers .particle-container .colors .color-selector .color-list,
+.gui .content .particle-containers .interaction-container .colors .color-selector .color-list,
+.gui .content .interaction-containers .particle-container .colors .color-selector .color-list,
+.gui .content .interaction-containers .interaction-container .colors .color-selector .color-list {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translate(-25%, -100%) scale(0.5);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-inline: 5px;
+  height: 20px;
+  border-radius: 10px;
+  background: #262626;
+  transition: all 0.1s ease-in-out;
+}
+.gui .content .particle-containers .particle-container .colors .color-selector .color-list.show,
+.gui .content .particle-containers .interaction-container .colors .color-selector .color-list.show,
+.gui .content .interaction-containers .particle-container .colors .color-selector .color-list.show,
+.gui .content .interaction-containers .interaction-container .colors .color-selector .color-list.show {
+  opacity: 1;
+  transform: translate(-15px, -100%) scale(1);
+}
+.gui .content .particle-containers .particle-container .colors .color-selector .color-list::after,
+.gui .content .particle-containers .interaction-container .colors .color-selector .color-list::after,
+.gui .content .interaction-containers .particle-container .colors .color-selector .color-list::after,
+.gui .content .interaction-containers .interaction-container .colors .color-selector .color-list::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 12px;
+  transform: translate(-25%, 0);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #262626;
+}
+.gui .content .particle-containers .particle-container .colors .close,
+.gui .content .particle-containers .interaction-container .colors .close,
+.gui .content .interaction-containers .particle-container .colors .close,
+.gui .content .interaction-containers .interaction-container .colors .close {
+  margin-left: auto;
+  margin-bottom: auto;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5333333333);
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+}
+.gui .content .particle-containers .particle-container .colors .close:hover,
+.gui .content .particle-containers .interaction-container .colors .close:hover,
+.gui .content .interaction-containers .particle-container .colors .close:hover,
+.gui .content .interaction-containers .interaction-container .colors .close:hover {
+  background: rgba(255, 255, 255, 0.1333333333);
+  color: rgba(255, 255, 255, 0.6666666667);
+}
+.gui .content .particle-containers .particle-container .force-container,
+.gui .content .particle-containers .interaction-container .force-container,
+.gui .content .interaction-containers .particle-container .force-container,
+.gui .content .interaction-containers .interaction-container .force-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.gui .content .particle-containers .particle-container .force-container .force-types,
+.gui .content .particle-containers .interaction-container .force-container .force-types,
+.gui .content .interaction-containers .particle-container .force-container .force-types,
+.gui .content .interaction-containers .interaction-container .force-container .force-types {
+  display: flex;
+  gap: 10px;
+}
+.gui .content .particle-containers .particle-container .force-container .force-types .force-type,
+.gui .content .particle-containers .interaction-container .force-container .force-types .force-type,
+.gui .content .interaction-containers .particle-container .force-container .force-types .force-type,
+.gui .content .interaction-containers .interaction-container .force-container .force-types .force-type {
+  width: 100%;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.1333333333);
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 12px;
+  transition: all 0.1s ease-in-out;
+}
+.gui .content .particle-containers .particle-container .force-container .force-types .force-type:hover,
+.gui .content .particle-containers .interaction-container .force-container .force-types .force-type:hover,
+.gui .content .interaction-containers .particle-container .force-container .force-types .force-type:hover,
+.gui .content .interaction-containers .interaction-container .force-container .force-types .force-type:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.gui .content .particle-containers .particle-container .force-container .force-types .force-type.selected,
+.gui .content .particle-containers .interaction-container .force-container .force-types .force-type.selected,
+.gui .content .interaction-containers .particle-container .force-container .force-types .force-type.selected,
+.gui .content .interaction-containers .interaction-container .force-container .force-types .force-type.selected {
+  background: rgba(255, 255, 255, 0.2666666667);
+}
+.gui .content .particle-containers .particle-container .force-container .force-types .force-type.selected:hover,
+.gui .content .particle-containers .interaction-container .force-container .force-types .force-type.selected:hover,
+.gui .content .interaction-containers .particle-container .force-container .force-types .force-type.selected:hover,
+.gui .content .interaction-containers .interaction-container .force-container .force-types .force-type.selected:hover {
+  background: rgba(255, 255, 255, 0.3333333333);
+}
+.gui .content .particle-containers .particle-container .container-head,
+.gui .content .particle-containers .interaction-container .container-head,
+.gui .content .interaction-containers .particle-container .container-head,
+.gui .content .interaction-containers .interaction-container .container-head {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.gui .content .particle-containers .particle-container .container-head .color,
+.gui .content .particle-containers .interaction-container .container-head .color,
+.gui .content .interaction-containers .particle-container .container-head .color,
+.gui .content .interaction-containers .interaction-container .container-head .color {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+}
+.gui .content .particle-containers .particle-container .container-head .sublabel,
+.gui .content .particle-containers .interaction-container .container-head .sublabel,
+.gui .content .interaction-containers .particle-container .container-head .sublabel,
+.gui .content .interaction-containers .interaction-container .container-head .sublabel {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6666666667);
+}
+.gui .content .particle-containers .particle-container .container-head .close,
+.gui .content .particle-containers .interaction-container .container-head .close,
+.gui .content .interaction-containers .particle-container .container-head .close,
+.gui .content .interaction-containers .interaction-container .container-head .close {
+  margin-left: auto;
+  margin-bottom: auto;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5333333333);
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+}
+.gui .content .particle-containers .particle-container .container-head .close:hover,
+.gui .content .particle-containers .interaction-container .container-head .close:hover,
+.gui .content .interaction-containers .particle-container .container-head .close:hover,
+.gui .content .interaction-containers .interaction-container .container-head .close:hover {
+  background: rgba(255, 255, 255, 0.1333333333);
+  color: rgba(255, 255, 255, 0.6666666667);
+}
+.gui .content .particle-containers .particle-container:hover,
+.gui .content .particle-containers .interaction-container:hover,
+.gui .content .interaction-containers .particle-container:hover,
+.gui .content .interaction-containers .interaction-container:hover {
+  background: rgba(255, 255, 255, 0.0196078431);
+}
+.gui .content .particle-containers .particle-container:hover .container-head .close,
+.gui .content .particle-containers .interaction-container:hover .container-head .close,
+.gui .content .interaction-containers .particle-container:hover .container-head .close,
+.gui .content .interaction-containers .interaction-container:hover .container-head .close {
+  opacity: 1;
+}
+.gui .content .particle-containers .particle-container:hover .colors .close,
+.gui .content .particle-containers .interaction-container:hover .colors .close,
+.gui .content .interaction-containers .particle-container:hover .colors .close,
+.gui .content .interaction-containers .interaction-container:hover .colors .close {
+  opacity: 1;
+}
+.gui .content .particle-containers .particle-container .setting,
+.gui .content .particle-containers .interaction-container .setting,
+.gui .content .interaction-containers .particle-container .setting,
+.gui .content .interaction-containers .interaction-container .setting {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5333333333);
+}
+.gui .content .particle-containers .particle-container .setting .setting-value,
+.gui .content .particle-containers .interaction-container .setting .setting-value,
+.gui .content .interaction-containers .particle-container .setting .setting-value,
+.gui .content .interaction-containers .interaction-container .setting .setting-value {
+  background: rgba(255, 255, 255, 0.1333333333);
+  color: #ffffff;
+  padding: 2px 6px;
+  font-weight: 400;
+  border-radius: 5px;
+  margin-left: 2px;
+  border: none;
+  outline: none;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.gui .content .particle-containers .particle-container .setting .setting-value::-webkit-outer-spin-button, .gui .content .particle-containers .particle-container .setting .setting-value::-webkit-inner-spin-button,
+.gui .content .particle-containers .interaction-container .setting .setting-value::-webkit-outer-spin-button,
+.gui .content .particle-containers .interaction-container .setting .setting-value::-webkit-inner-spin-button,
+.gui .content .interaction-containers .particle-container .setting .setting-value::-webkit-outer-spin-button,
+.gui .content .interaction-containers .particle-container .setting .setting-value::-webkit-inner-spin-button,
+.gui .content .interaction-containers .interaction-container .setting .setting-value::-webkit-outer-spin-button,
+.gui .content .interaction-containers .interaction-container .setting .setting-value::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0;
+}
+.gui .content .particle-containers .particle-container .range,
+.gui .content .particle-containers .interaction-container .range,
+.gui .content .interaction-containers .particle-container .range,
+.gui .content .interaction-containers .interaction-container .range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gui .content .particle-containers .particle-container .range .value,
+.gui .content .particle-containers .interaction-container .range .value,
+.gui .content .interaction-containers .particle-container .range .value,
+.gui .content .interaction-containers .interaction-container .range .value {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5333333333);
+  font-size: 12px;
+}
+.gui .content .particle-containers .particle-container .range .range-content,
+.gui .content .particle-containers .interaction-container .range .range-content,
+.gui .content .interaction-containers .particle-container .range .range-content,
+.gui .content .interaction-containers .interaction-container .range .range-content {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1333333333);
+  border-radius: 5px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+.gui .content .particle-containers .particle-container .range .range-content::-webkit-slider-thumb,
+.gui .content .particle-containers .interaction-container .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .particle-container .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .interaction-container .range .range-content::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  background: #6536fe;
+}
+.gui .content .particle-containers .particle-container .range .range-content::-moz-range-thumb,
+.gui .content .particle-containers .interaction-container .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .particle-container .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .interaction-container .range .range-content::-moz-range-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  background: #6536fe;
+}
+.gui .content .particle-containers .particle-container .range .range-content::-webkit-slider-thumb:hover,
+.gui .content .particle-containers .interaction-container .range .range-content::-webkit-slider-thumb:hover,
+.gui .content .interaction-containers .particle-container .range .range-content::-webkit-slider-thumb:hover,
+.gui .content .interaction-containers .interaction-container .range .range-content::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+.gui .content .particle-containers .particle-container .range .range-content::-moz-range-thumb:hover,
+.gui .content .particle-containers .interaction-container .range .range-content::-moz-range-thumb:hover,
+.gui .content .interaction-containers .particle-container .range .range-content::-moz-range-thumb:hover,
+.gui .content .interaction-containers .interaction-container .range .range-content::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+.gui .content .particle-containers .particle-container .range .range-content::-webkit-slider-thumb:active,
+.gui .content .particle-containers .interaction-container .range .range-content::-webkit-slider-thumb:active,
+.gui .content .interaction-containers .particle-container .range .range-content::-webkit-slider-thumb:active,
+.gui .content .interaction-containers .interaction-container .range .range-content::-webkit-slider-thumb:active {
+  transform: scale(1.2);
+}
+.gui .content .particle-containers .particle-container .range .range-content::-moz-range-thumb:active,
+.gui .content .particle-containers .interaction-container .range .range-content::-moz-range-thumb:active,
+.gui .content .interaction-containers .particle-container .range .range-content::-moz-range-thumb:active,
+.gui .content .interaction-containers .interaction-container .range .range-content::-moz-range-thumb:active {
+  transform: scale(1.2);
+}
+.gui .content .particle-containers .particle-container.red .container-head .color,
+.gui .content .particle-containers .interaction-container.red .container-head .color,
+.gui .content .interaction-containers .particle-container.red .container-head .color,
+.gui .content .interaction-containers .interaction-container.red .container-head .color {
+  background: #f91d4d;
+}
+.gui .content .particle-containers .particle-container.red .range .range-content::-webkit-slider-thumb,
+.gui .content .particle-containers .interaction-container.red .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .particle-container.red .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .interaction-container.red .range .range-content::-webkit-slider-thumb {
+  background: #f91d4d;
+}
+.gui .content .particle-containers .particle-container.red .range .range-content::-moz-range-thumb,
+.gui .content .particle-containers .interaction-container.red .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .particle-container.red .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .interaction-container.red .range .range-content::-moz-range-thumb {
+  background: #f91d4d;
+}
+.gui .content .particle-containers .particle-container.green .container-head .color,
+.gui .content .particle-containers .interaction-container.green .container-head .color,
+.gui .content .interaction-containers .particle-container.green .container-head .color,
+.gui .content .interaction-containers .interaction-container.green .container-head .color {
+  background: #0db342;
+}
+.gui .content .particle-containers .particle-container.green .range .range-content::-webkit-slider-thumb,
+.gui .content .particle-containers .interaction-container.green .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .particle-container.green .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .interaction-container.green .range .range-content::-webkit-slider-thumb {
+  background: #0db342;
+}
+.gui .content .particle-containers .particle-container.green .range .range-content::-moz-range-thumb,
+.gui .content .particle-containers .interaction-container.green .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .particle-container.green .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .interaction-container.green .range .range-content::-moz-range-thumb {
+  background: #0db342;
+}
+.gui .content .particle-containers .particle-container.blue .container-head .color,
+.gui .content .particle-containers .interaction-container.blue .container-head .color,
+.gui .content .interaction-containers .particle-container.blue .container-head .color,
+.gui .content .interaction-containers .interaction-container.blue .container-head .color {
+  background: #4a4ad7;
+}
+.gui .content .particle-containers .particle-container.blue .range .range-content::-webkit-slider-thumb,
+.gui .content .particle-containers .interaction-container.blue .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .particle-container.blue .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .interaction-container.blue .range .range-content::-webkit-slider-thumb {
+  background: #4a4ad7;
+}
+.gui .content .particle-containers .particle-container.blue .range .range-content::-moz-range-thumb,
+.gui .content .particle-containers .interaction-container.blue .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .particle-container.blue .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .interaction-container.blue .range .range-content::-moz-range-thumb {
+  background: #4a4ad7;
+}
+.gui .content .particle-containers .particle-container.yellow .container-head .color,
+.gui .content .particle-containers .interaction-container.yellow .container-head .color,
+.gui .content .interaction-containers .particle-container.yellow .container-head .color,
+.gui .content .interaction-containers .interaction-container.yellow .container-head .color {
+  background: #f0e246;
+}
+.gui .content .particle-containers .particle-container.yellow .range .range-content::-webkit-slider-thumb,
+.gui .content .particle-containers .interaction-container.yellow .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .particle-container.yellow .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .interaction-container.yellow .range .range-content::-webkit-slider-thumb {
+  background: #f0e246;
+}
+.gui .content .particle-containers .particle-container.yellow .range .range-content::-moz-range-thumb,
+.gui .content .particle-containers .interaction-container.yellow .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .particle-container.yellow .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .interaction-container.yellow .range .range-content::-moz-range-thumb {
+  background: #f0e246;
+}
+.gui .content .particle-containers .particle-container.cyan .container-head .color,
+.gui .content .particle-containers .interaction-container.cyan .container-head .color,
+.gui .content .interaction-containers .particle-container.cyan .container-head .color,
+.gui .content .interaction-containers .interaction-container.cyan .container-head .color {
+  background: #42cedb;
+}
+.gui .content .particle-containers .particle-container.cyan .range .range-content::-webkit-slider-thumb,
+.gui .content .particle-containers .interaction-container.cyan .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .particle-container.cyan .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .interaction-container.cyan .range .range-content::-webkit-slider-thumb {
+  background: #42cedb;
+}
+.gui .content .particle-containers .particle-container.cyan .range .range-content::-moz-range-thumb,
+.gui .content .particle-containers .interaction-container.cyan .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .particle-container.cyan .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .interaction-container.cyan .range .range-content::-moz-range-thumb {
+  background: #42cedb;
+}
+.gui .content .particle-containers .particle-container.magenta .container-head .color,
+.gui .content .particle-containers .interaction-container.magenta .container-head .color,
+.gui .content .interaction-containers .particle-container.magenta .container-head .color,
+.gui .content .interaction-containers .interaction-container.magenta .container-head .color {
+  background: #d742d7;
+}
+.gui .content .particle-containers .particle-container.magenta .range .range-content::-webkit-slider-thumb,
+.gui .content .particle-containers .interaction-container.magenta .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .particle-container.magenta .range .range-content::-webkit-slider-thumb,
+.gui .content .interaction-containers .interaction-container.magenta .range .range-content::-webkit-slider-thumb {
+  background: #d742d7;
+}
+.gui .content .particle-containers .particle-container.magenta .range .range-content::-moz-range-thumb,
+.gui .content .particle-containers .interaction-container.magenta .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .particle-container.magenta .range .range-content::-moz-range-thumb,
+.gui .content .interaction-containers .interaction-container.magenta .range .range-content::-moz-range-thumb {
+  background: #d742d7;
+}
+.gui .content .down-buttons {
+  display: flex;
+  gap: 10px;
+}
+.gui .content .down-buttons .save,
+.gui .content .down-buttons .load {
+  width: 100%;
+  padding-block: 10px;
+  background: rgba(255, 255, 255, 0.1333333333);
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.1s ease-in-out;
+}
+.gui .content .down-buttons .save:hover,
+.gui .content .down-buttons .load:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.gui .content .down-buttons .save {
+  background: #6536fe;
+}
+.gui .content .down-buttons .save:hover {
+  background: #784ffe;
+}
+.gui:has(.content.minimized) {
+  opacity: 0.5;
+}
+
+/*# sourceMappingURL=main.css.map */
